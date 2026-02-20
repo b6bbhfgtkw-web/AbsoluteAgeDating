@@ -32,22 +32,7 @@ In the app, **N/N0** is the **parent fraction remaining**.
 ## Run locally
 Just open `index.html` in a browser.
 
-## Publish on GitHub Pages
-1. Create a repository (e.g., `absolute-age-dating-explorer`).
-2. Upload these files:
-   - `index.html`
-   - `style.css`
-   - `app.js`
-   - `README.md`
-3. In GitHub: **Settings → Pages → Build and deployment**
-   - Source: **Deploy from a branch**
-   - Branch: `main` (root)
 
-Your app will be available at the GitHub Pages URL.
-
-## Customize
-- Edit isotope systems in `app.js` (array named `systems`).
-- Want to include initial daughter? Add a second slider and change the age calculation accordingly.
 
 ---
 Created for UHCL introductory geology teaching.
