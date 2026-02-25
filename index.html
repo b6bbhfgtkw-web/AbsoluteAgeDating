@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Absolute Age Dating Explorer (Half-life)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Absolute Age Dating Explorer</h1>
+    <p class="subtitle">Visualize parent → daughter decay and compute sample age from half-life.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Controls</h2>
+
+      <div class="row">
+        <label for="system">Isotope system</label>
+        <select id="system"></select>
+        <button id="resetBtn" type="button" class="ghost">Reset</button>
+      </div>
+
+      <div class="row">
+        <label for="halfLifeValue">Half-life</label>
+        <div class="inline">
+          <input id="halfLifeValue" type="number" min="0" step="any" value="5730" />
+          <select id="halfLifeUnit" aria-label="Half-life unit">
+            <option value="yr">years</option>
+            <option value="kyr">thousand years (kyr)</option>
+            <option value="Myr" selected>million years (Myr)</option>
+            <option value="Gyr">billion years (Gyr)</option>
+          </select>
+        </div>
+        <p class="hint">Tip: choose an isotope system to auto-fill a typical half-life, or pick <em>Custom</em>.</p>
+      </div>
+
+      <div class="row">
+        <label for="daughterSlider">Daughter atoms (%)</label>
+        <div class="inline">
+          <input id="daughterSlider" type="range" min="0" max="100" value="0" step="1" />
+          <output id="daughterOut">0%</output>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="kpi">
+          <div class="kpi-item">
+            <div class="kpi-label">Parent remaining</div>
+            <div id="parentPct" class="kpi-value">100%</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Number of half-lives</div>
+            <div id="nHalves" class="kpi-value">0.00</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Calculated age</div>
+            <div id="ageOut" class="kpi-value">0 years</div>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Assumptions &amp; equation used</summary>
+        <div class="details">
+          <p>This simple simulator assumes:</p>
+          <ul>
+            <li>Initial daughter atoms = 0 (all atoms start as parent).</li>
+            <li>The system remains closed (no parent/daughter gain or loss).</li>
+          </ul>
+          <p>We use the radioactive decay law:</p>
+          <p class="equation"><strong>N/N<sub>0</sub> = (1/2)<sup>t/t<sub>1/2</sub></sup></strong></p>
+          <p>Solving for time:</p>
+          <p class="equation"><strong>t = t<sub>1/2</sub> · log<sub>2</sub>(N<sub>0</sub>/N)</strong></p>
+          <p>In this app, <em>N/N<sub>0</sub></em> is the <strong>parent fraction remaining</strong> (1 − daughter%).</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2>Visualization</h2>
+
+      <div class="viz">
+        <div class="legend">
+          <span class="swatch parent"></span> Parent
+          <span class="swatch daughter"></span> Daughter
+        </div>
+
+        <canvas id="atomsCanvas" width="520" height="360" aria-label="Parent and daughter atoms visualization"></canvas>
+
+        <div class="barWrap" aria-label="Parent and daughter percentage bar">
+          <div id="parentBar" class="bar parentBar"><span id="parentBarLabel"></span></div>
+          <div id="daughterBar" class="bar daughterBar"><span id="daughterBarLabel"></span></div>
+        </div>
+
+        <p class="small">The grid shows 100 atoms (each dot ≈ 1%). The bar shows the same percentages.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made for introductory geology: absolute age dating / radiometric decay.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
